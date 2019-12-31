@@ -5,12 +5,12 @@ import EventPage from './EventPage';
 export interface HomePageProps {
 
 }
- 
+
 export interface HomePageState {
     searched: Boolean,
     searchInput: String,
 }
- 
+
 class HomePage extends React.Component<HomePageProps, HomePageState> {
     constructor(props: HomePageProps) {
         super(props);
@@ -36,17 +36,15 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
         })
     }
 
-    render() { 
+    render() {
         const eventPage = this.state.searched ? <EventPage /> : null;
 
         return (
             <View>
-                <input type="input" id="searchInput" placeholder="Business or Category" onChange={this.setSearchInput}/>
-                <input type="button" id="searchButton" onClick={this.search}/>
                 { eventPage }
             </View>
         );
     }
 }
- 
+
 export default HomePage;
