@@ -15,9 +15,10 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
     constructor(props: HomePageProps) {
         super(props);
         this.state = {
-            searched: false,
+            searched: true,
             searchInput: '',
         };
+        this.search = this.search.bind(this)
     }
 
     setSearchInput() {
@@ -37,7 +38,7 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
     }
 
     render() {
-        const eventPage = this.state.searched ? <EventPage /> : null;
+        const eventPage = this.state.searched ? <EventPage search={this.search} /> : null;
 
         return (
             <View>
