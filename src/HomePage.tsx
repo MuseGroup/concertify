@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {Button, SafeAreaView, FlatList, Linking, StyleSheet, Image, Text, View} from 'react-native';
 import EventPage from './EventPage';
 import config from './../config.js'
 
@@ -37,7 +37,14 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
             .then(data => data._embedded.events)
             .then(data => {
                 for (let i = 0; i < data.length; i += 1) {
-                    holdingArr.push(data[i].name)
+                    // holdingArr.push(
+                    //     <View>
+                    //         <Text>{data[i].name}</Text>
+                    //         {/*<Image source={{uri: data[i].images[8]}} />*/}
+                    //         <Text>{data[i].dates.start.localDate}</Text>
+                    //         <Button title={'Get Tickets'} onPress={() => Linking.openURL(data[i].url)}/>
+                    //     </View>)
+                    holdingArr.push({name: data[i].name, venue: data[i]._embedded.venues[0].name, image: data[i].images[8], date: data[i].dates.start.localDate, url: data[i].url})
                 }})
             .then(data => this.setState({eventArray: holdingArr}))
             .catch(error => console.log(error))
@@ -48,13 +55,28 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
         const eventPage = this.state.searched ? <EventPage eventArray={this.state.eventArray} /> : null;
 
         return (
-            <View>
+            <SafeAreaView style={styles.container}>
                 <Button title={'Search'} onPress={() => {this.searchEvents()}} />
-                <View>{this.state.eventArray}</View>
-                { eventPage }
-            </View>
+                {/*<View>{this.state.eventArray}</View>*/}
+                <FlatList data={this.state.eventArray} renderItem={({ item }) =>
+                    <View>
+                        <Text>{item.name}</Text>
+                        <Text>{item.date}</Text>
+                        <Text>{item.venue}</Text>
+                        <Button title={'Get Tickets'} onPress={() => Linking.openURL(item.url)}/>
+                    </View>
+                } />
+                {/*{ eventPage }*/}
+
+            </SafeAreaView>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+});
 
 export default HomePage;
