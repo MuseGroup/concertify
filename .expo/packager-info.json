@@ -1,9 +1,10 @@
 {
-  "devToolsPort": 19002,
+  "devToolsPort": 19003,
   "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 4692,
-  "expoServerNgrokUrl": "https://jj-26i.anonymous.concertify.exp.direct",
-  "packagerNgrokUrl": "https://packager.jj-26i.anonymous.concertify.exp.direct",
-  "ngrokPid": 5304
+  "packagerPort": 19009,
+  "packagerPid": 81981,
+  "expoServerNgrokUrl": "https://7r-x54.anonymous.concertify.exp.direct",
+  "packagerNgrokUrl": "https://packager.7r-x54.anonymous.concertify.exp.direct",
+  "ngrokPid": 82007,
+  "webpackServerPort": null
 }
