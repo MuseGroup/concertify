@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 572,
-  "expoServerNgrokUrl": "https://cd-36t.anonymous.concertify.exp.direct",
-  "packagerNgrokUrl": "https://packager.cd-36t.anonymous.concertify.exp.direct",
-  "ngrokPid": 583
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
