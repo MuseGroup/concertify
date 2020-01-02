@@ -1,13 +1,9 @@
 const puppeteer = require('puppeteer')
 
-//the unfortunate part about using puppeteer is all of the necessary code reuse
-//due to the way it accesses the browser
-
-//scraping LAFD headlines, links, and alerts
-const festivalFestival = async () => {
+const scrapeFestivalWizard = async () => {
     const browser = await puppeteer.launch()
     const page = await browser.newPage()
-    await page.goto(`https://www.musicfestivalwizard.com/`)
+    await page.goto(`https://www.musicfestivalwizard.com/all-festivals`)
 
     const scrapedData = await page.evaluate(() =>
         Array.from(
@@ -88,7 +84,7 @@ const scrapeTopFestivals= async () => {
 // }
 
 
-// module.exports.scrapeLAFD = scrapeLAFD
+module.exports.scrapeFestivalWizard = scrapeFestivalWizard
 // module.exports.scrapeLAFDAlerts = scrapeLAFDAlerts
 // module.exports.scrapeLATimes = scrapeLATimes
 // module.exports.scrapeYoutube = scrapeYoutube

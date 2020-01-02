@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://cd-36t.anonymous.concertify.exp.direct",
+  "packagerNgrokUrl": "https://packager.cd-36t.anonymous.concertify.exp.direct",
+  "ngrokPid": 96001
 }
