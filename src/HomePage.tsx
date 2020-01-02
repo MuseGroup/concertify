@@ -44,7 +44,7 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
                     //         <Text>{data[i].dates.start.localDate}</Text>
                     //         <Button title={'Get Tickets'} onPress={() => Linking.openURL(data[i].url)}/>
                     //     </View>)
-                    holdingArr.push({name: data[i].name, venue: data[i]._embedded.venues[0].name, image: data[i].images[8], date: data[i].dates.start.localDate, url: data[i].url})
+                    holdingArr.push({name: data[i].name, key: ('key' + [i]),venue: data[i]._embedded.venues[0].name, image: data[i].images[8], date: data[i].dates.start.localDate, url: data[i].url})
                 }})
             .then(data => this.setState({eventArray: holdingArr}))
             .catch(error => console.log(error))
@@ -59,11 +59,11 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
                 <Button title={'Search'} onPress={() => {this.searchEvents()}} />
                 {/*<View>{this.state.eventArray}</View>*/}
                 <FlatList data={this.state.eventArray} renderItem={({ item }) =>
-                    <View>
-                        <Text>{item.name}</Text>
-                        <Text>{item.date}</Text>
-                        <Text>{item.venue}</Text>
-                        <Button title={'Get Tickets'} onPress={() => Linking.openURL(item.url)}/>
+                    <View style={styles.event}>
+                        <Text style={styles.itemText}>{item.name}</Text>
+                        <Text style={styles.itemText}>{item.date}</Text>
+                        <Text style={styles.itemText}>{item.venue}</Text>
+                        <Button color='#25aee8' title={'Get Tickets'} onPress={() => Linking.openURL(item.url)}/>
                     </View>
                 } />
                 {/*{ eventPage }*/}
@@ -77,6 +77,25 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    event: {
+        borderStyle: 'solid',
+        borderWidth: 5,
+        borderColor: '#1db954',
+        borderRadius: 5,
+        backgroundColor: '#1c1c1c',
+        marginTop: 5,
+        marginLeft: 5,
+        marginRight: 5,
+        textAlign: 'center'
+    },
+    button: {
+        backgroundColor: '#1b8dde',
+    },
+    itemText: {
+        color: '#ededed',
+        fontSize: 16,
+        textAlign: 'center'
+    }
 });
 
 export default HomePage;
