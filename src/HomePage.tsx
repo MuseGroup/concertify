@@ -41,8 +41,6 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
 
         return (
             <View>
-                <input type="input" id="searchInput" placeholder="Business or Category" onChange={this.setSearchInput}/>
-                <input type="button" id="searchButton" onClick={this.search}/>
                 { eventPage }
             </View>
         );
