@@ -1,16 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import config from './../config.js'
+
 
 export interface EventPageProps {
-
+    eventArray: Object
 }
 
 const EventPage: React.SFC<EventPageProps> = () => {
     return (
         <View>
             <Text>
-                Events Here
+                eventArray
             </Text>
         </View>
      );
