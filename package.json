@@ -10,17 +10,25 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "cheerio-without-node-native": "^1.0.0-rc.2",
+    "cli-table": "^0.3.1",
+    "d3-dsv": "^1.2.0",
     "expo": "~36.0.0",
+    "jsonfile": "^5.0.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
     "react-native-gesture-handler": "^1.5.2",
+    "react-native-music-control": "^0.10.8",
     "react-native-reanimated": "^1.4.0",
     "react-native-web": "~0.11.7",
     "react-navigation": "^4.0.10",
     "react-navigation-drawer": "^2.3.3",
     "react-navigation-stack": "^1.10.3",
     "react-navigation-tabs": "^2.6.2",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5",
     "styled-components": "^4.4.1"
   },
   "devDependencies": {
