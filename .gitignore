@@ -9,9 +9,10 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
-
+config.js 
 # macOS
 .DS_Store
 
 # Lock file
 package-lock.json
+config.js 
