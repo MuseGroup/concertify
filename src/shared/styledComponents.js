@@ -44,7 +44,6 @@ export const TextInput = styled.TextInput.attrs(props => ({
   padding: 16px;
   padding-left: 24px;
   margin-bottom: 16px;
-  margin-top: 16px;
 `;
 
 export const Button = styled.TouchableOpacity`
@@ -55,8 +54,8 @@ export const Button = styled.TouchableOpacity`
   border-radius: 30px;
   align-items: center;
   justify-content: center;
-  margin-bottom: 300px;
   margin-top: 16px;
+  margin-bottom: 6px;
 `;
 
 export const Text = styled.Text`

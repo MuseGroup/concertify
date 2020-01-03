@@ -8,8 +8,8 @@ const Logo = () => {
       <View>
         <Image
           style={{
-            width: 300,
-            height: 300,
+            width: 200,
+            height: 200,
             paddingLeft: 400,
             marginLeft: 27,
             justifyContent: "center",

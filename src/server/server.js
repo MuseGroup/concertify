@@ -1,18 +1,13 @@
 const express = require('express');
 const scraperController = require('./scraper');
 const cors = require('cors');
-
 const app = express();
-
 app.use(cors());
 app.get('/', (req, res) => res.send('hello world'));
 app.get('/festivals/*', scraperController.getData);
 app.get('/festivals', scraperController.getAllData);
 app.listen(3000);
-
 module.exports = app;
-
-
 // var express      = require('express');
 // var path         = require('path');
 // var favicon      = require('serve-favicon');

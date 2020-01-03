@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import React, { Component } from "react";
+import { StyleSheet, View, SafeAreaView, FlatList, Linking, Image } from "react-native";
 import { routes, colors, buttons, placeholders } from "../../shared/constants";
 import {
   FlexCentered,
@@ -10,102 +10,79 @@ import {
   CenteredHome
 } from "../../shared/styledComponents";
 import Logo from "../Logo";
-
-// const Nightmare = require('nightmare');
-// const nightmare = Nightmare({ show: false });
-// have this set to false for performance but can set to true if you'd like to see what it's scraping
-
-// export const webScraper = () => {
-//   nightmare
-//     .goto(`https://www.musicfestivalwizard.com/music-festival-news`)
-//     .wait('.desc_text')
-//     .evaluate(() => {
-//       let thing = document.querySelector('.h2');
-//       return thing.innerHTML
-//     })
-//     .end()
-//     .then((result) => {
-//       return result
-//     })
-//     .catch((error) => {
-//       console.error('Search failed:', error);
-//     });
-// }
-// const rp = require('request-promise');
-// const cheerio = require('cheerio-without-node-native');
-// const Table = require('cli-table');
-
-// let table = new Table({
-// 	head: ['username', '❤️', 'challenges'],
-// 	colWidths: [15, 5, 10]
-// })
-
-// const options = {
-// 	url: `https://forum.freecodecamp.org/directory_items?period=weekly&order=likes_received&_=1518604435748`,
-// 	json: true
-// }
-
-// rp(options)
-// 	.then((data) => {
-// 		let userData = [];
-// 		for (let user of data.directory_items) {
-// 			userData.push({name: user.user.username,likes_received: user.likes_received});
-// 		}
-// 		process.stdout.write('loading');
-// 		getChallengesCompletedAndPushToUserArray(userData);
-// 	})
-// 	.catch((err) => {
-// 		console.log(err);
-// 	});
-
-// function getChallengesCompletedAndPushToUserArray(userData) {
-// 	var i = 0;
-// 	function next() {
-// 		if (i < userData.length) {
-// 			var options = {
-// 				url: `https://www.freecodecamp.org/` + userData[i].name,
-// 				transform: body => cheerio.load(body)
-// 			}
-// 			rp(options)
-// 				.then(function ($) {
-// 					process.stdout.write(`.`);
-// 					const fccAccount = $('h1.landing-heading').length == 0;
-// 					const challengesPassed = fccAccount ? $('tbody tr').length : 'unknown';
-// 					table.push([userData[i].name, userData[i].likes_received, challengesPassed]);
-// 					++i;
-// 					return next();
-// 				})
-// 		} else {
-// 			printData();
-// 		}
-// 	}
-// 	return next();
-// };
-
-// function printData() {
-// 	console.log("✅");
-// 	console.log(table.toString());
-// }
+import config from './../../../config.js'
+import Profile from './Profile.js'
 
 
+class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      eventArray: []
+    };
+  }
 
-const Home = () => (
-  <FlexCentered>
-    <Logo />
-    <Text>Search</Text>
-    <CenteredHome>
-      <TextInput placeholder={placeholders.playlist} />
-      <Button>
-        <Text
-          color={colors.bright}
-          onPress={() => {
-            alert("Playlist sent!");
-          }}
-        >
-          {buttons.sendPlaylist}
-        </Text>
-      </Button>
-    </CenteredHome>
-  </FlexCentered>
-);
+
+  searchEvents() {
+    const holdingArr = [];
+    fetch(`https://app.ticketmaster.com/discovery/v2/events.json?stateCode=ca&classificationName="Alternative Rock"&apikey=${config.ticketApi}`)
+        .then(data => data.json())
+        .then(data => data._embedded.events)
+        .then(data => {
+          for (let i = 0; i < data.length; i += 1) {
+            holdingArr.push({name: data[i].name, key: ('key' + [i]),venue: data[i]._embedded.venues[0].name, image: data[i].images[8], date: data[i].dates.start.localDate, url: data[i].url})
+          }})
+        .then(data => this.setState({eventArray: holdingArr}))
+        .catch(error => console.log(error))
+  }
+
+  render() {
+    return (
+    <SafeAreaView style={styles.container}>
+      {/*<Profile eventArray={this.state.eventArray} />*/}
+      <Logo/>
+      <CenteredHome style={styles.container}>
+        <TextInput placeholder={placeholders.playlist}/>
+      <Button onPress={() => {this.searchEvents()}}><Text color={colors.bright}>Get Concerts</Text></Button>
+        <FlatList data={this.state.eventArray} renderItem={({ item }) =>
+            <View style={styles.event}>
+              <Text style={styles.itemText}>{item.name}</Text>
+              <Text style={styles.itemText}>{item.date}</Text>
+              <Text style={styles.itemText}>{item.venue}</Text>
+              <Button onPress={() => Linking.openURL(item.url)}><Text color={colors.bright} >Get Tickets</Text></Button>
+            </View>
+        } />
+      </CenteredHome>
+    </SafeAreaView>
+    );
+  }
+};
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#2B3B52',
+  },
+  event: {
+    borderStyle: 'solid',
+    borderWidth: 5,
+    borderColor: '#B8D94F',
+    borderRadius: 5,
+    backgroundColor: '#2B3B52',
+    marginTop: 5,
+    marginLeft: 5,
+    marginRight: 5,
+    textAlign: 'center'
+  },
+  button: {
+    backgroundColor: '#1b8dde',
+  },
+  itemText: {
+    color: '#B8D94F',
+    fontSize: 16,
+    textAlign: 'center'
+  }
+});
+
 export default Home;

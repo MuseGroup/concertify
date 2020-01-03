@@ -3,10 +3,8 @@ const request = require('request');
 const mcache = require('memory-cache');
 const fetch = require('node-fetch');
 const moment = require('moment');
-
 const festivals = {
   wizard: 'https://www.musicfestivalwizard.com/music-festival-news/',
-  
 };
 
 function cleanString(str) {
@@ -60,15 +58,12 @@ const scrapeController = {
     }
     const allBeachData = [
       oneFestival(festivals.wizard),
-     
     ];
     Promise.all(allFestivalData).then((fulfilled) => {
       mcache.put('all', fulfilled);
       res.send(fulfilled);
     });
   },
-
 };
-
 
 module.exports = scrapeController;
