@@ -18,22 +18,28 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      eventArray: []
+      eventArray: [],
+      playlistURL: '',
+      genre: '',
     };
   }
 
 
   searchEvents() {
     const holdingArr = [];
-    fetch(`https://app.ticketmaster.com/discovery/v2/events.json?stateCode=ca&classificationName="Alternative Rock"&apikey=${config.ticketApi}`)
+    fetch(`https://app.ticketmaster.com/discovery/v2/events.json?stateCode=ca&classificationName=${this.state.playlistURL}&apikey=${config.ticketApi}`)
         .then(data => data.json())
         .then(data => data._embedded.events)
         .then(data => {
           for (let i = 0; i < data.length; i += 1) {
-            holdingArr.push({name: data[i].name, key: ('key' + [i]),venue: data[i]._embedded.venues[0].name, image: data[i].images[8], date: data[i].dates.start.localDate, url: data[i].url})
+            holdingArr.push({name: data[i].name, key: ('key' + [i]), venue: data[i]._embedded.venues[0].name, image: data[i].images[8].url, date: data[i].dates.start.localDate, url: data[i].url})
           }})
         .then(data => this.setState({eventArray: holdingArr}))
         .catch(error => console.log(error))
+  }
+
+  handleChange(txt) {
+    this.setState({playlistURL: txt})
   }
 
   render() {
@@ -42,14 +48,17 @@ class Home extends Component {
       {/*<Profile eventArray={this.state.eventArray} />*/}
       <Logo/>
       <CenteredHome style={styles.container}>
-        <TextInput placeholder={placeholders.playlist}/>
+        <TextInput placeholder={placeholders.playlist} onChangeText={(txt) => this.handleChange(txt)} />
       <Button onPress={() => {this.searchEvents()}}><Text color={colors.bright}>Get Concerts</Text></Button>
         <FlatList data={this.state.eventArray} renderItem={({ item }) =>
             <View style={styles.event}>
+              <FlexCentered>
               <Text style={styles.itemText}>{item.name}</Text>
+              <Image style={styles.imageStyle} source={{uri: item.image}}/>
               <Text style={styles.itemText}>{item.date}</Text>
               <Text style={styles.itemText}>{item.venue}</Text>
               <Button onPress={() => Linking.openURL(item.url)}><Text color={colors.bright} >Get Tickets</Text></Button>
+              </FlexCentered>
             </View>
         } />
       </CenteredHome>
@@ -73,7 +82,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginLeft: 5,
     marginRight: 5,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   button: {
     backgroundColor: '#1b8dde',
@@ -82,6 +91,12 @@ const styles = StyleSheet.create({
     color: '#B8D94F',
     fontSize: 16,
     textAlign: 'center'
+  },
+  imageStyle: {
+    marginTop: 5,
+    marginBottom: 5,
+    width: 205,
+    height: 115
   }
 });
 
