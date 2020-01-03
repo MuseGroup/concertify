@@ -102,3 +102,24 @@ dist
 
 # TernJS port file
 .tern-port
+
+#config file
+config.js
+
+node_modules/**/*
+.expo/*
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+web-report/
+
+# macOS
+.DS_Store
+
+# Lock file
+package-lock.json
