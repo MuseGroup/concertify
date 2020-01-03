@@ -1,4 +1,4 @@
-const scraper = require('..utils/scraper')
+const scraper = require('./..utils/scraper')
 
 const festivalController = {};
 
